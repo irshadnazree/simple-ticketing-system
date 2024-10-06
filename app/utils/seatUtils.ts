@@ -20,7 +20,7 @@ export const generateSeats = (sections: Section[]): Seat[] => {
         row,
         number: index + 1,
         isSelected: false,
-        isOccupied: Math.random() < 0.2, // 20% chance of being occupied
+        isOccupied: false,
       }))
     )
   );

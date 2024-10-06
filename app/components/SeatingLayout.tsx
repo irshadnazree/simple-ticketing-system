@@ -4,16 +4,15 @@ import { Seat, Section, generateSeats } from '../utils/seatUtils';
 import CinemaScreen from './CinemaScreen';
 import Legend from './Legend';
 import SeatButton from './SeatButton';
-import SectionControls from './SectionControls';
 
 const initialSections: Section[] = [
-  { name: 'Front', rows: ['A', 'B', 'C', 'D'], seatsPerRow: 8 },
-  { name: 'Middle', rows: ['E', 'F', 'G', 'H'], seatsPerRow: 10 },
+  { name: 'Front', rows: ['A', 'B', 'C', 'D'], seatsPerRow: 12 },
+  { name: 'Middle', rows: ['E', 'F', 'G', 'H'], seatsPerRow: 12 },
   { name: 'Back', rows: ['I', 'J', 'K'], seatsPerRow: 12 },
 ];
 
 export default function SeatingLayout() {
-  const [sections, setSections] = useState<Section[]>(initialSections);
+  const [sections] = useState<Section[]>(initialSections);
   const [seats, setSeats] = useState<Seat[]>(generateSeats(sections));
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
@@ -33,22 +32,22 @@ export default function SeatingLayout() {
     );
   }, []);
 
-  const updateSectionSeats = useCallback(
-    (sectionIndex: number, change: number) => {
-      setSections((prevSections) => {
-        const newSections = [...prevSections];
-        newSections[sectionIndex] = {
-          ...newSections[sectionIndex],
-          seatsPerRow: Math.max(
-            1,
-            newSections[sectionIndex].seatsPerRow + change
-          ),
-        };
-        return newSections;
-      });
-    },
-    []
-  );
+  // const updateSectionSeats = useCallback(
+  //   (sectionIndex: number, change: number) => {
+  //     setSections((prevSections) => {
+  //       const newSections = [...prevSections];
+  //       newSections[sectionIndex] = {
+  //         ...newSections[sectionIndex],
+  //         seatsPerRow: Math.max(
+  //           1,
+  //           newSections[sectionIndex].seatsPerRow + change
+  //         ),
+  //       };
+  //       return newSections;
+  //     });
+  //   },
+  //   []
+  // );
 
   const renderSeats = useCallback(
     (sectionName: string) => {
@@ -77,25 +76,27 @@ export default function SeatingLayout() {
       <div className='mb-8 flex justify-center'>
         <CinemaScreen />
       </div>
-      {sections.map((section, index) => (
-        <div key={section.name} className='mb-12'>
-          <div className='bg-white p-4 rounded-lg shadow-md'>
+      <div className='flex flex-col gap-4'>
+        {sections.map((section) => (
+          <div
+            key={section.name}
+            className='bg-neutral-700 p-4 rounded-md shadow-md'
+          >
             {renderSeats(section.name)}
           </div>
-          <SectionControls
-            section={section}
-            onUpdate={(change) => updateSectionSeats(index, change)}
-          />
-        </div>
-      ))}
+        ))}
+      </div>
       <div className='mt-8'>
         <h2 className='text-xl font-semibold mb-4'>Selected Seats</h2>
         {selectedSeats.length > 0 ? (
-          <ul className='list-disc list-inside'>
-            {selectedSeats.map((seatId) => (
-              <li key={seatId}>{seatId}</li>
+          <div className='text-wrap'>
+            {selectedSeats.map((seatId, index) => (
+              <span key={seatId}>
+                {seatId}
+                {index < selectedSeats.length - 1 && ', '}
+              </span>
             ))}
-          </ul>
+          </div>
         ) : (
           <p>No seats selected</p>
         )}
