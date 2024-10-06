@@ -40,6 +40,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+import { useEffect } from 'react';
+
 export default function App() {
+  useEffect(() => {
+    // Check for user preference or saved setting
+    const isDarkMode = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    document.documentElement.classList.toggle('dark', isDarkMode);
+  }, []);
+
   return <Outlet />;
 }

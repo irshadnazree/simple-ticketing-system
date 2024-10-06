@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -40,7 +31,7 @@ body {
     --radius: 0.5rem;
   }
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 222.2 0% 15%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -73,5 +64,12 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Add this new section at the end of the file */
+@layer utilities {
+  .dark {
+    color-scheme: dark;
   }
 }
