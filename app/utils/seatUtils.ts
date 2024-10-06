@@ -21,7 +21,7 @@ export const generateSeats = (sections: Section[]): Seat[] => {
         number: index + 1,
         isSelected: false,
         isOccupied: false,
-      }))
-    )
+      })),
+    ),
   );
 };

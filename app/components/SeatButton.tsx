@@ -1,5 +1,4 @@
-import { Square } from 'lucide-react';
-import { Seat } from '../utils/seatUtils';
+import { Seat } from "../utils/seatUtils";
 
 interface SeatButtonProps {
   seat: Seat;
@@ -11,22 +10,22 @@ export default function SeatButton({ seat, onClick }: SeatButtonProps) {
     <button
       onClick={() => onClick(seat.id)}
       disabled={seat.isOccupied}
-      className={`w-6 h-6 m-1 rounded-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+      className={`m-1 h-6 w-6 rounded-t-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
         seat.isOccupied
-          ? 'bg-gray-500 cursor-not-allowed'
+          ? "cursor-not-allowed bg-gray-500"
           : seat.isSelected
-          ? 'bg-blue-500 text-white'
-          : 'bg-gray-200 hover:bg-gray-300'
+            ? "bg-blue-500 text-white"
+            : "bg-gray-200 hover:bg-gray-300"
       }`}
       aria-label={`${seat.row}${seat.number} ${
         seat.isOccupied
-          ? 'Occupied'
+          ? "Occupied"
           : seat.isSelected
-          ? 'Selected'
-          : 'Available'
+            ? "Selected"
+            : "Available"
       }`}
     >
-      <Square className='w-full h-full p-1' />
+      <span className="sr-only">{`${seat.row}${seat.number}`}</span>
     </button>
   );
 }
